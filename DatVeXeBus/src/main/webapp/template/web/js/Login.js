@@ -4,7 +4,7 @@ function getEle(element) {
 
 function KiemTraRong1() {
     var email = getEle('email').value;
-    var pass = getEle('pass').value;
+    var pass = getEle('matKhau').value;
     var thongbao = getEle('tb-submit');
     if (email == "" || pass == "") {
         thongbao.innerHTML = "(*) Vui lòng nhập đầy đủ thông tin";

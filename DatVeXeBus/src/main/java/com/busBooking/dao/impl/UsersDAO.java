@@ -8,29 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.busBooking.connect.Connecttion;
 import com.busBooking.dao.IUsersDAO;
 import com.busBooking.model.UsersRole;
 import com.busBooking.model.Users;
 
 public class UsersDAO implements IUsersDAO {
 
-	public Connection getConnection() {
-		String userName = "root";
-		String password = "123123";
-		String connectionURL = "jdbc:mysql://localhost:3306/dbbookingbusticker?useUnicode=true&characterEncoding=UTF-8&useFastDateParsing=false";
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			return DriverManager.getConnection(connectionURL, userName, password);
-		} catch (ClassNotFoundException | SQLException e) {
-			return null;
-		}
-	}
-
 	@Override
 	public List<Users> findAll() {
 		List<Users> listUser = new ArrayList<Users>();
 		String sql = "select * from users";
-		Connection conn = getConnection();
+		Connection conn = Connecttion.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		if (conn != null) {
@@ -74,7 +63,7 @@ public class UsersDAO implements IUsersDAO {
 	@Override
 	public Users findId(int id) {
 		String sql = "select * from users where id= ?";
-		Connection conn = getConnection();
+		Connection conn = Connecttion.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Users us = new Users();
@@ -118,7 +107,7 @@ public class UsersDAO implements IUsersDAO {
 	@Override
 	public UsersRole login(String user, String pass) {
 		String sql = "select users.id, ho_ten, email, so_dien_thoai, mat_khau, so_cmnd, trang_thai, dia_chi, quyen.ten as quyen from users  inner join phan_quyen on users.id = phan_quyen.id_user inner join quyen on quyen.id = phan_quyen.id_quyen where email = ? and mat_khau = ?";
-		Connection conn = getConnection();
+		Connection conn = Connecttion.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		UsersRole use = null;
@@ -172,10 +161,10 @@ public class UsersDAO implements IUsersDAO {
 	@Override
 	public List<UsersRole> getAllUsers(String role) {
 		String sql = "select users.id, ho_ten, email, so_dien_thoai, mat_khau, so_cmnd, trang_thai, dia_chi, quyen.ten as quyen from users  inner join phan_quyen on users.id = phan_quyen.id_user inner join quyen on quyen.id = phan_quyen.id_quyen where quyen.ten = ?";
-		Connection conn = getConnection();
+		Connection conn = Connecttion.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<UsersRole> use = null;
+		List<UsersRole> use = new ArrayList<UsersRole>();
 		if (conn != null) {
 			try {				
 				ps = conn.prepareStatement(sql);
@@ -212,8 +201,9 @@ public class UsersDAO implements IUsersDAO {
 					return null;
 				}
 			}
+			return use;
 		}
-		return null;
+		return use;
 	}
 
 

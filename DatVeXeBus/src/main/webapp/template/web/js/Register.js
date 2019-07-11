@@ -10,11 +10,9 @@ function KiemTraRong() {
     var repass = getEle('repass').value;
     var Cmnd = getEle('cmnd').value;
     var sdt = getEle('sdt').value;
-    var qh = getEle('quanhuyen').value;
-    var tp = getEle('city').value;
     var dc = getEle('diachi').value;
     var thongbao = getEle('tb-submit1');
-    if (user == "" || email == "" || pass == "" || repass == "" || Cmnd == "" || sdt == "" || qh =="" || tp == "" || dc == "") {
+    if (user == "" || email == "" || pass == "" || repass == "" || Cmnd == "" || sdt == "" || dc == "") {
         thongbao.innerHTML = "(*) Vui lòng nhập đầy đủ thông tin";
         thongbao.style.display = "block";
 
@@ -43,7 +41,7 @@ function KiemTraEmail() {
     var inputTag = getEle('Email1');
     var thongbao = getEle('tb-email1');
     var email = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
-    "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     if (inputTag.value.match(email)) {
         thongbao.style.display = 'none';
         return true;
@@ -88,8 +86,6 @@ function Register() {
         KiemTraMinMax('Email1', 'tb-email1', "Email", 5, 50) &&
         KiemTraMinMax('Pass1', 'tb-pass1', "Password", 8, 50) &&
         KiemTraMinMax('cmnd', 'tb-cmnd', "CMND", 9, 9) &&
-        KiemTraMinMax('quanhuyen', 'tb-quanhuyen', "Số Kí Tự Quá Ngắn", 4, 20) &&
-        KiemTraMinMax('city', 'tb-city', "Số Kí Tự Quá Ngắn", 4, 20) &&
         KiemTraMinMax('diachi', 'tb-diachi', "Số Kí Tự Quá Ngắn", 4, 20) &&
         KiemTraEmail() &&
         KiemTraRepass();

@@ -27,6 +27,10 @@ public class UsersService implements IUsersService {
 
 	@Override
 	public UsersRole login(String email, String pass) {		
+		if(email.length()==0 || pass.length()==0) {
+			UsersRole us = new UsersRole();
+			return us;
+		}
 		return usersDao.login(email, pass);
 	}
 

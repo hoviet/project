@@ -36,7 +36,7 @@
                                 </a>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="<c:url value='/admin/manage?action=addUser'/>">
                                     <span class="pcoded-mtext">Thêm nhân viên</span>
                                 </a>
                             </li>

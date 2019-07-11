@@ -19,6 +19,8 @@
             <!-- Style.css -->
             <link rel="stylesheet" type="text/css" href="<c:url value='/template/admin/files/assets/css/style.css'/>">
             <link rel="stylesheet" type="text/css" href="<c:url value='/template/admin/files/assets/css/jquery.mCustomScrollbar.css'/>">
+
+            <link rel="stylesheet" type="text/css" href="<c:url value='/template/admin/files/assets/icon/icofont/css/icofont.css'/>">
         </head>
 
         <body>
