@@ -10,7 +10,6 @@
         </head>
 
         <body>
-
             <section class="slider1">
                 <div class="container">
                     <div class="slider__content">
@@ -19,31 +18,43 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="inputEmail4">Điểm Đi</label>
-                                        <select name="" id="" style="width: 250px;height: 40px;border: none;border-bottom: 1px solid grey;outline: none">
-                                        <c:if test="${not empty DSBenXe}">
-                                        	<c:forEach var="item" items="${DSBenXe}">
-                                        		<option value="${item.id}">${item.tenBenXe}</option>
-                                        	</c:forEach>
-                                        </c:if>
-                                        </select>
-                                        <span class="sp-thongbao" id="tb-from"></span>
+                                        <select name="idBenXeDi" id="idBenXeDi" onchange="showCustomer(this.value)" style="width: 250px;height: 40px;border: none;border-bottom: 1px solid grey;outline: none">
+                                                <c:if test="${not empty DSBenXe}">
+                                                    <c:forEach var="item" items="${DSBenXe}">
+                                                     <option value="${item.id}">${item.tenBenXe}</option>
+                                                    </c:forEach>
+                                                </c:if>                            
+                                            </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputPassword4">Điểm Đến</label>
-                                        <select name="" id="" style="width: 250px;height: 40px;border: none;border-bottom: 1px solid grey;outline: none">
-                                        <c:if test="${not empty DSBenXe}">
-                                        	<c:forEach var="item" items="${DSBenXe}">
-                                        		<option value="${item.id}">${item.tenBenXe}</option>
-                                        	</c:forEach>
-                                        </c:if>
-                                          </select> <span class="sp-thongbao" id="tb-to"></span>
+                                        <select name="idBenXeDen" id="idBenXeDen" style="width: 250px;height: 40px;border: none;border-bottom: 1px solid grey;outline: none">
+                                        
+                                         </select> <span class="sp-thongbao" id="tb-to"></span>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputPassword5">Ngày Khởi Hành</label> <input type="date" class="form-control" id="datepicker" placeholder="dd-mm-yyyy" /> <span class="sp-thongbao" id="tb-date"></span>
                                     </div>
 
                                 </div>
-
+                                <script type="text/javascript">
+                                    function showCustomer(str) {
+                                        var xhttp;
+                                        xhttp = new XMLHttpRequest();
+                                        xhttp.onreadystatechange = function() {
+                                            if (this.readyState == 4 && this.status == 200) {
+                                                var json = JSON.parse(this.responseText);
+                                                var html = "";
+                                                json.forEach(ele => {
+                                                    html = html + '<option value="' + ele.id + '">' + ele.tenBenXe + '</option>';
+                                                });
+                                                document.getElementById("idBenXeDen").innerHTML = html;
+                                            }
+                                        };
+                                        xhttp.open("GET", "/DatVeXeBus/dat-ve?action=diemDen&id=" + str, true);
+                                        xhttp.send();
+                                    }
+                                </script>
                                 <div class="button__new">
                                     <input type="hidden" value="datVe" name="action" />
                                     <button id="div1" type="submit" class="button__w" onclick="return KiemTraRong2()"> Tìm Kiếm
@@ -54,45 +65,6 @@
                         </div>
                         <div class="slider__img">
                             <img src="<c:url value='/template/web/img/bus2.png' />" alt="" />
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="product">
-                <div class="container">
-                    <div class="product__content">
-                        <div class="product__detail">
-                            <div class="detail__img1 img__img">
-                                <img src="<c:url value='/template/web/img/1.png' />" alt="" />
-                                <div class="img__detail">
-                                    <h1>Số Lượng Xe</h1>
-                                    <p>Chất Lượng</p>
-                                    <b>Hơn 500 Xe </b>
-                                    <p>Chất Lượng Hiện Đại</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__detail">
-                            <div class="detail__img1 img__img">
-                                <img src="<c:url value='/template/web/img/2.png' />" alt="" />
-                                <div class="img__detail">
-                                    <h1>Số Lượng Xe</h1>
-                                    <p>Chất Lượng</p>
-                                    <b>Hơn 500 Xe </b>
-                                    <p>Chất Lượng Hiện Đại</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product__detail">
-                            <div class="detail__img1">
-                                <img src="<c:url value='/template/web/img/3.png' />" alt="" />
-                                <div class="img__detail">
-                                    <h1>Số Lượng Xe</h1>
-                                    <p>Chất Lượng</p>
-                                    <b>Hơn 500 Xe </b>
-                                    <p>Chất Lượng Hiện Đại</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

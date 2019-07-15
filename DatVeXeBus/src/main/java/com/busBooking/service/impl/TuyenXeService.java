@@ -17,5 +17,10 @@ public class TuyenXeService implements ITuyenXeService{
 		
 		return tuyenXe.danhSach();
 	}
+	@Override
+	public TuyenXe layMot(int idDi, int idDen) {
+		
+		return tuyenXe.layMot(idDi, idDen);
+	}
 	
 }

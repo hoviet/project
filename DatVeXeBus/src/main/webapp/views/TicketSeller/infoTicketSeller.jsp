@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
+	prefix="dec"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <title>Insert title here</title>
 </head>
 
@@ -24,12 +26,13 @@
 									</div>
 									<div class="card-block">
 										<c:if test="${not empty USER}">
-											<form>
+											<form action="<c:url value='/TicketSeller/info'/>" id=""
+												method="post" accept-charset="UTF-8">
 												<div class="form-group row">
 													<label class="col-sm-2 col-form-label">Họ và tên</label>
 													<div class="col-sm-10">
 														<input type="text" class="form-control"
-															placeholder="${USER.hoTen}">
+															placeholder="${USER.hoTen}" id="hoTen" name="hoTen">
 													</div>
 												</div>
 												<div class="form-group row">
@@ -37,14 +40,15 @@
 														thoại</label>
 													<div class="col-sm-10">
 														<input type="text" class="form-control"
-															placeholder="${USER.soDienThoai}">
+															placeholder="${USER.soDienThoai}" id="soDienThoai"
+															name="soDienThoai">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-2 col-form-label">Số CMNN</label>
 													<div class="col-sm-10">
 														<input type="text" class="form-control"
-															placeholder="${USER.soCMND}">
+															placeholder="${USER.soCMND}" id="soCMND" name="soCMND">
 													</div>
 												</div>
 												<div class="form-group row">
@@ -54,13 +58,14 @@
 															placeholder="${USER.email}" disabled="">
 													</div>
 												</div>
+												<input type="hidden" value="edit" name="action" />
 												<div class="form-group row">
 													<label class="col-sm-2"></label>
 													<div class="col-sm-10">
 														<button type="submit" class="btn btn-primary m-b-0">Save</button>
 													</div>
 												</div>
-											</form>
+											</form>											
 										</c:if>
 									</div>
 								</div>

@@ -28,8 +28,7 @@
 		<dec:body />
 	</div>
 
-	<!-- footer -->
-	<%@ include file="/common/web/footer.jsp"%>
+	<!-- 
 	<!-- footer -->
 
 	<script type="text/javascript"

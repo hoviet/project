@@ -5,7 +5,7 @@ function getEle(element){
 function KiemTraRong2(){
     var from = getEle('inputEmail4').value;
     var to = getEle('inputPassword4').value;
-    var day = getEle('datepicker').value;
+    var day = getEle('datepicker');
     var thongbao4 = getEle('tb-subb')
     if(from == "" || to =="" || day == ""){
         thongbao4.innerHTML = "(*) Không Được Để Trống!";

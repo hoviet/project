@@ -53,4 +53,44 @@ public class BenXeDAO implements IBenXeDAO{
 		return null;
 	}
 
+	@Override
+	public BenXe layMot(int id) {
+		BenXe bx = new BenXe();
+		String sql = "select * from ben_xe where id = ?";
+		Connection conn = Connecttion.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		if (conn != null) {
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, id);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					bx.setId(rs.getInt("id"));
+					bx.setTenBenXe(rs.getString("ten_ben"));
+					bx.setMaTinh(rs.getString("ma_tinh"));					
+
+				}
+				return bx;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (conn == null) {
+						conn.close();
+					}
+					if (ps == null) {
+						ps.close();
+					}
+					if (rs == null) {
+						rs.close();
+					}
+				} catch (Exception e2) {
+					return null;
+				}
+			}
+		}
+		return null;
+	}
+
 }

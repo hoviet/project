@@ -37,21 +37,22 @@ public class AuthorizationFilter implements Filter{
 				if(us.getRole().equals("ADMIN")) {
 					filterChain.doFilter(servletRequest, servletResponse);
 				}else {
+					SessionUtil.getInstance().removeValue(req, "USER");
+					resp.sendRedirect(req.getContextPath()+"/dang-nhap");
+				}
+			}else {
+				SessionUtil.getInstance().removeValue(req, "USER");
+				resp.sendRedirect(req.getContextPath()+"/dang-nhap");
+			}
+		}else if(url.startsWith("/TicketSeller")) {
+			if(us !=null) {			
+				if(us.getRole().equals("NHANVIEN")) {
+					filterChain.doFilter(servletRequest, servletResponse);	
+				}else {
 					resp.sendRedirect(req.getContextPath()+"/dang-nhap?action=login");
 				}				
 			}else {
 				resp.sendRedirect(req.getContextPath()+"/dang-nhap?action=login");
-			}
-		}else if(url.startsWith("/trang-chu")) {
-			if(us !=null) {			
-				if(us.getRole().equals("ADMIN")) {
-					RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
-					rd.forward(req, resp);
-				}else {
-					filterChain.doFilter(servletRequest, servletResponse); 
-				}				
-			}else {
-				filterChain.doFilter(servletRequest, servletResponse); 
 			} 
 		}else {
 			filterChain.doFilter(servletRequest, servletResponse); 

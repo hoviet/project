@@ -31,6 +31,19 @@ function KiemTraEmail1(idTag) {
     }
 }
 
+// function KiemTraPass3() {
+//     var Regexpass1 = getEle('matKhau');
+//     var thongbao = getEle('tb-pass');
+//     var pass2 = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$";
+//     if (Regexpass1.value.match(pass2)) {
+//         thongbao.style.display = 'none';
+//         return true;
+//     } else {
+//         thongbao.style.display = 'block';
+//         thongbao.innerHTML = "(*) Pass chưa đúng định dạng";
+//         return false;
+//     }
+// }
 
 function Login() {
     return KiemTraRong1() && KiemTraEmail1('email');

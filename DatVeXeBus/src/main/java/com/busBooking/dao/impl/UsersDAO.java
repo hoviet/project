@@ -30,7 +30,6 @@ public class UsersDAO implements IUsersDAO {
 					Users us = new Users();
 					us.setId(rs.getInt("id"));
 					us.setHoTen(rs.getString("ho_ten"));
-					us.setMatKhau(rs.getString("mat_khau"));
 					us.setEmail(rs.getString("email"));
 					us.setDiaChi(rs.getString("dia_chi"));
 					us.setSoCMND(rs.getInt("so_cmnd"));
@@ -75,7 +74,6 @@ public class UsersDAO implements IUsersDAO {
 				while (rs.next()) {					
 					us.setId(rs.getInt("id"));
 					us.setHoTen(rs.getString("ho_ten"));
-					us.setMatKhau(rs.getString("mat_khau"));
 					us.setEmail(rs.getString("email"));
 					us.setDiaChi(rs.getString("dia_chi"));
 					us.setSoCMND(rs.getInt("so_cmnd"));
@@ -121,7 +119,6 @@ public class UsersDAO implements IUsersDAO {
 					UsersRole us = new UsersRole();
 					us.setId(rs.getInt("id"));
 					us.setHoTen(rs.getString("ho_ten"));
-					us.setMatKhau(rs.getString("mat_khau"));
 					us.setEmail(rs.getString("email"));
 					us.setDiaChi(rs.getString("dia_chi"));
 					us.setSoCMND(rs.getInt("so_cmnd"));
@@ -174,7 +171,6 @@ public class UsersDAO implements IUsersDAO {
 					UsersRole us = new UsersRole();
 					us.setId(rs.getInt("id"));
 					us.setHoTen(rs.getString("ho_ten"));
-					us.setMatKhau(rs.getString("mat_khau"));
 					us.setEmail(rs.getString("email"));
 					us.setDiaChi(rs.getString("dia_chi"));
 					us.setSoCMND(rs.getInt("so_cmnd"));
@@ -204,6 +200,76 @@ public class UsersDAO implements IUsersDAO {
 			return use;
 		}
 		return use;
+	}
+
+	@Override
+	public Boolean update(Users us) {
+		String sql = "update users set ho_ten = ?, so_dien_thoai = ?, so_cmnd = ?  where id = ?;";
+		Connection conn = Connecttion.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Boolean a = false;
+		if (conn != null) {
+			try {				
+				ps = conn.prepareStatement(sql);				
+				ps.setString(1, us.getHoTen());
+				ps.setString(2, us.getSoDienThoai());
+				ps.setInt(3, us.getSoCMND());
+				ps.setInt(4, us.getId());
+				ps.executeUpdate();			
+				a = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (conn == null) {
+						conn.close();
+					}
+					if (ps == null) {
+						ps.close();
+					}
+					if (rs == null) {
+						rs.close();
+					}
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return a;
+	}
+
+	@Override
+	public Boolean updatePass(UsersRole us) {
+		String sql = "update users set mat_khau = ?  where id = ?;";
+		Connection conn = Connecttion.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Boolean a = false;
+		if (conn != null) {
+			try {				
+				ps = conn.prepareStatement(sql);				
+				ps.setString(1, us.getMatKhau());
+				ps.setInt(2, us.getId());
+				ps.executeUpdate();			
+				a = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (conn == null) {
+						conn.close();
+					}
+					if (ps == null) {
+						ps.close();
+					}
+					if (rs == null) {
+						rs.close();
+					}
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return a;
 	}
 
 

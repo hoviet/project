@@ -36,25 +36,35 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		List<BenXe> dsDiemDi = benXe.danhSach();
-		List<TuyenXe> dsTuyenXe = tuyen.dsTuyenXe();
 		SessionUtil.getInstance().putValue(req, "DSBenXe", dsDiemDi);
-		SessionUtil.getInstance().putValue(req, "DSTuyenXe", dsTuyenXe);
 		if (action != null && action.equals("login")) {
 			RequestDispatcher rd = req.getRequestDispatcher("/views/web/home.jsp");
 			rd.forward(req, resp);
 		} else if (action != null && action.equals("logout")) {
-			SessionUtil.getInstance().removeValue(req, "USER");
+			SessionUtil.getInstance().removeValue(req, "USER");			
 			resp.sendRedirect(req.getContextPath()+"/trang-chu");
-		} else {
+			
+		} else if (action != null && action.equals("info")) {
+			SessionUtil.getInstance().removeValue(req, "USER");			
+			resp.sendRedirect(req.getContextPath()+"/trang-chu");
+			
+		}else if (action != null && action.equals("danhSachVe")) {
+			SessionUtil.getInstance().removeValue(req, "USER");			
+			resp.sendRedirect(req.getContextPath()+"/trang-chu");
+			
+		}else {
 			UsersRole us = (UsersRole) SessionUtil.getInstance().getValue(req, "USER");
 			if(us != null) {
 				if(us.getRole().equals("ADMIN")) {
 					RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
 					rd.forward(req, resp);
-				}else {
-					RequestDispatcher rd = req.getRequestDispatcher("/views/web/Booking.jsp");
+				}else if(us.getRole().equals("NHANVIEN")) {
+					RequestDispatcher rd = req.getRequestDispatcher("/views/TicketSeller/home.jsp");
 					rd.forward(req, resp);
-				}			
+				}else {
+					RequestDispatcher rd = req.getRequestDispatcher("/views/web/Prolife.jsp");
+					rd.forward(req, resp);
+				}
 			}else {
 				RequestDispatcher rd = req.getRequestDispatcher("/views/web/home.jsp");
 				rd.forward(req, resp);
@@ -67,12 +77,14 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		if (action != null && action.equals("login")) {
-			UsersRole user = FormUtil.toModel(UsersRole.class, req);			
+			UsersRole user = FormUtil.toModel(UsersRole.class, req);
 			user = usersService.login(user.getEmail(), user.getMatKhau());
 			if(user != null) {
 				SessionUtil.getInstance().putValue(req, "USER", user);
 				if(user.getRole().equals("ADMIN")) {
 					resp.sendRedirect(req.getContextPath()+"/admin");
+				}else if(user.getRole().equals("NHANVIEN")){
+					resp.sendRedirect(req.getContextPath()+"/TicketSeller");
 				}else {
 					resp.sendRedirect(req.getContextPath()+"/trang-chu");
 				}

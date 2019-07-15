@@ -52,6 +52,20 @@ function KiemTraEmail() {
     }
 }
 
+function KiemTraPass() {
+    var Regexpass = getEle('Pass1');
+    var thongbao = getEle('tb-pass1');
+    var pass = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$";
+    if (Regexpass.value.match(pass)) {
+        thongbao.style.display = 'none';
+        return true;
+    } else {
+        thongbao.style.display = 'block';
+        thongbao.innerHTML = "(*) Pass chưa đúng định dạng";
+        return false;
+    }
+}
+
 function KiemTraRepass() {
     var pass = getEle('Pass1');
     var repass = getEle('repass');
@@ -65,6 +79,31 @@ function KiemTraRepass() {
         return true;
     }
 
+}
+
+function KiemTraSDT() {
+    var sdtt = getEle('sdt');
+    var kiemtra = "^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3}).{10}$";
+    var thongbao = getEle('tb-sdt');
+    if(sdtt.value.match(kiemtra)){
+        thongbao.style.display = 'none';
+        return true;
+    }else{
+        thongbao.style.display = 'block';
+        return false;
+    }
+}
+function KiemTraKiTu(){
+    var cmndd = getEle('cmnd');
+    var kiemtra2 = "/^\d+{9}$/";
+    var thongbao = getEle('tb-cmnd');
+    if(cmndd.value.match(kiemtra2)){
+        thongbao.style.display ='none'
+        return true
+    }else {
+        thongbao.style.display = 'block';
+        return false;
+    }
 }
 // function KiemTraCMND(cmnd){
 //     var cmnd = getEle('cmnd');
@@ -85,8 +124,11 @@ function Register() {
         KiemTraMinMax('user', 'tb-user', "Username", 3, 50) &&
         KiemTraMinMax('Email1', 'tb-email1', "Email", 5, 50) &&
         KiemTraMinMax('Pass1', 'tb-pass1', "Password", 8, 50) &&
-        KiemTraMinMax('cmnd', 'tb-cmnd', "CMND", 9, 9) &&
+        // KiemTraMinMax('cmnd', 'tb-cmnd', "CMND", 9, 9) &&
         KiemTraMinMax('diachi', 'tb-diachi', "Số Kí Tự Quá Ngắn", 4, 20) &&
         KiemTraEmail() &&
-        KiemTraRepass();
+        KiemTraRepass() &&
+        KiemTraPass() &&
+        KiemTraSDT() &&
+        KiemTraKiTu();
 }

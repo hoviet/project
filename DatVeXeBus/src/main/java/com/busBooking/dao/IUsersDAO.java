@@ -11,4 +11,6 @@ public interface IUsersDAO {
 	public UsersRole login(String user, String pass);
 	public Users checkEmail(String email);
 	public List<UsersRole> getAllUsers(String role);
+	public Boolean update(Users us);
+	public Boolean updatePass (UsersRole us);
 }

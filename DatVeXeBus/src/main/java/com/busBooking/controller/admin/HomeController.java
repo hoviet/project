@@ -24,11 +24,13 @@ public class HomeController extends HttpServlet {
 			if(us.getRole().equals("ADMIN")) {
 				RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
 				rd.forward(req, resp);
-			}else {
-				resp.sendRedirect(req.getContextPath()+"/dang-nhap?action=login");
+			}else{
+				SessionUtil.getInstance().removeValue(req, "USER");
+				resp.sendRedirect(req.getContextPath()+"/dang-nhap");
 			}				
 		}else {
-			resp.sendRedirect(req.getContextPath()+"/dang-nhap?action=login");
+			SessionUtil.getInstance().removeValue(req, "USER");
+			resp.sendRedirect(req.getContextPath()+"/dang-nhap");
 		}				
 	}
 
